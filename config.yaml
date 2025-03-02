@@ -1,0 +1,195 @@
+preparation:
+  GENERIC_DATA_TEMPLATE:
+    is_generic: true
+    data_dir: GENERIC_DATA_TEMPLATE_DIR
+    resolution: 512
+    creates:
+      - template_images_HQ
+      - template_images
+      - warped_images_HQ
+      - warped_images
+
+  inv3d:
+    is_generic: false 
+    data_dir: input/inv3d
+    resolution: 512
+    creates:
+      - template_images_HQ
+      - template_images
+      - warped_images_HQ
+      - warped_images
+      - true_images_HQ
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+segmentation:
+  sam1:
+    model: docmatcher-sam@inv3d.ckpt 
+    model_original: sam_vit_l_0b3195.pth
+    model_type: vit_l
+    max_rotation_angle: null 
+    updates:
+      - warped_images_HQ
+      - warped_images
+    creates:
+      - masks
+
+line_detection:
+  former2: 
+    model: docmatcher-lineformer@inv3d.ckpt 
+    config: src/line_detection/config_inference/lineformer_new_transforms.py
+    coco_params:
+      resolution: 512
+      line_width: 3
+      limit_testval: 1000
+      with_mask: false
+      with_borders: true
+    parameters:
+      score_threshold: 0.3
+      max_line_length: 50
+      smooth_sigma: 5
+      duplicate_line_thickness: 3
+      duplicate_containment_ratio: 0.9
+      min_text_margin: 1
+      max_text_margin:  50
+      num_text_margin_steps: 100
+      distraction_ratio: null
+    creates:
+      - template_lines
+      - warped_lines
+      - warped_lines_GT
+
+preunwarp_homography:
+  proj2:
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - warped_lines
+      - masks
+    removes:
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+line_matching:
+  glue1:
+    model: docmatcher-lightglue@inv3d.ckpt
+    feature_params:
+      line_context: 8 
+      feature_length: 256
+      feature_width: 8
+      positional_encoding_dim: 8
+    statistics:
+      mean: [140.12614991477145, 150.19862000715116, 155.90102529818296]
+      std: [89.8778098871918, 83.66556578893933, 81.45941443557166]
+    min_num_features: 20
+    batch_size: 64
+    limit_val_samples: 1000
+    updates:
+      - warped_lines
+    creates:
+      - matches
+
+unwarp_correspondence: 
+
+  corr2s:
+    min_text_longest_common_substring: 3
+    min_text_length: 3
+    unwarp_version: 1
+    sort_criteria: assignment_probability
+    max_slope: 0.0025
+    smooth_value: 75 
+    clip: False
+    padding_value: null
+    padding_blur: False
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - masks
+    removes:
+      - warped_lines
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+unwarp_geotr: 
+  ident1:
+    model: identity.ckpt
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - warped_lines
+    removes:
+      - masks
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+  dwnet1:
+    model: dewarpnet@inv3d.ckpt
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - warped_lines
+    removes:
+      - masks
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+  geo1:
+    model: geotr@inv3d.ckpt
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - warped_lines
+    removes:
+      - masks
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+  geotm1:
+    model: geotr_template@inv3d.ckpt
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - warped_lines
+    removes:
+      - masks
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+  geotmlg1:
+    model: geotr_template_large@inv3d.ckpt
+    updates:
+      - warped_images_HQ
+      - warped_images
+      - warped_lines
+    removes:
+      - masks
+      - warped_lines_GT
+      - forward_maps_GT
+      - backward_maps_GT 
+      - masks_GT 
+      - masks_HQ_GT 
+
+collect_results: 
+  res:
+    creates:
+      - results

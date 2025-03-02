@@ -1,0 +1,12 @@
+*.pyc
+*_parsed.yaml
+
+cache
+models/*.ckpt
+models/*/
+input/inv3d/real/*/
+input/assets/dtd/*/
+input/inv3d/train
+input/inv3d/val
+input/inv3d/test
+output/*/

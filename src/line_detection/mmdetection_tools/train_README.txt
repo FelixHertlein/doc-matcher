@@ -1,0 +1,1 @@
+python src/line_detection/mmdetection_tools/train.py --gpu-id=7 src/line_detection/config/lineformer_former4_nomask_noborder.py

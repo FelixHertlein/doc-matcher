@@ -1,0 +1,9 @@
+iteration : 19, ce : 1.4933200836181642, total_loss : 0.7466600418090821, time : 40
+iteration : 39, ce : 1.145460307598114, total_loss : 0.572730153799057, time : 38
+iteration : 59, ce : 1.2056701123714446, total_loss : 0.6028350561857223, time : 38
+iteration : 79, ce : 1.089121350646019, total_loss : 0.5445606753230094, time : 38
+iteration : 99, ce : 0.9854126542806625, total_loss : 0.49270632714033125, time : 38
+iteration : 119, ce : 1.0959359288215638, total_loss : 0.5479679644107819, time : 38
+iteration : 139, ce : 0.9569704204797744, total_loss : 0.4784852102398872, time : 38
+iteration : 159, ce : 1.0163799464702605, total_loss : 0.5081899732351303, time : 38
+iteration : 179, ce : 0.990222105383873, total_loss : 0.4951110526919365, time : 38

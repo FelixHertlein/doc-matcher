@@ -1,0 +1,30 @@
+{
+	"build": {
+		"dockerfile": "../Dockerfile"
+	},
+	"runArgs": [
+		"--gpus=all",
+		"--shm-size=64gb",
+		"--ipc=host"
+	],
+	"forwardPorts": [],
+	"mounts": [
+		//"source=<YOUR_INV3D_PATH>/data/train,target=/workspaces/doc-matcher/input/inv3d/train,type=bind,consistency=cached,readOnly=true",
+		//"source=<YOUR_INV3D_PATH>data/val,target=/workspaces/doc-matcher/input/inv3d/val,type=bind,consistency=cached,readOnly=true",
+		//"source=<YOUR_INV3D_PATH>/data/test,target=/workspaces/doc-matcher/input/inv3d/test,type=bind,consistency=cached,readOnly=true"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"ms-toolsai.jupyter",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"ms-python.isort",
+				"ms-azuretools.vscode-docker",
+				"GeriYoco.vscode-image-gallery"
+			]
+		}
+	}
+}
