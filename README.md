@@ -1,6 +1,6 @@
 # DocMatcher
 
-This repository contains the models and inference, training and evaluation code of our [paper](https://felixhertlein.github.io/doc-matcher/) which has been accepted at the IEEE/CVF Winter Conference on Applications of Computer Vision ([WACV](https://wacv2025.thecvf.com/)) 2025.
+This repository contains the models and inference, training and evaluation code of our [paper](https://felixhertlein.github.io/doc-matcher/) which was presented at the IEEE/CVF Winter Conference on Applications of Computer Vision ([WACV](https://wacv2025.thecvf.com/)) 2025.
 
 For more details see our project page [project page](https://felixhertlein.github.io/doc-matcher/).
 
@@ -179,11 +179,13 @@ optional arguments:
 If you use the code of our paper for scientific research, please consider citing
 
 ```latex
-@inproceedings{hertlein2025docmatcher,
-	title        = {DocMatcher: Document Image Dewarping via Structural and Textual Line Matching},
-	author       = {Hertlein, Felix and Naumann, Alexander and Sure-Vetter, York},
-	year         = 2025,
-	booktitle    = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+@InProceedings{hertlein2025docmatcher,
+    author    = {Hertlein, Felix and Naumann, Alexander and Sure-Vetter, York},
+    title     = {DocMatcher: Document Image Dewarping via Structural and Textual Line Matching},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {5771-5780}
 }
 ```
 
