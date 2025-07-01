@@ -91,7 +91,9 @@ class Runner:
             )
 
             max_workers_by_mem = int(available_gpu_mem_gb / max_gpu_mem_gb)
-            max_workers = min(self.max_workers, max_workers_by_mem, self.limit_samples)
+            max_workers = min(self.max_workers, max_workers_by_mem)
+            if self.limit_samples:
+                max_workers = min(max_workers, self.limit_samples)
 
             if max_workers < self.max_workers:
                 print(

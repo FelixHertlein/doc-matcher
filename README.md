@@ -16,7 +16,7 @@ We highly recommend to use the provided Devcontainer to make the usage as easy a
 - Install VS Code Devcontainer extension `ms-vscode-remote.remote-containers`
 - Clone the repository
   ```shell
-  git clone https://github.com/FelixHertlein/inv3d-model.git
+  git clone https://github.com/FelixHertlein/doc-matcher.git
   ```
 - Press `F1` (or `CTRL + SHIFT + P`) and select `Dev Containers: Rebuild and Reopen Container`
 - Open a new terminal in VS Code
