@@ -56,6 +56,13 @@ def inference(
                 / f"models/{model_architecture}-{key}@{model_dataset}.ckpt",
             )
 
+    # gather legacy dependency for docmatcher
+    if model_architecture == "docmatcher":
+        gdown.cached_download(
+            url=model_sources["geotr_template_large@inv3d"], path=project_dir / f"models/geotr_template_large@inv3d.ckpt"
+        )
+
+
     pipeline = dataset_internal + MODEL_TO_PIPELINE[model_architecture]
 
     runner = Runner(
